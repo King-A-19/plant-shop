@@ -1,0 +1,83 @@
+/* Google font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;800&family=VT323&display=swap');
+
+/* Layout */
+:root {
+  --primary: #1aac83;
+  --error: #e7195a;
+}
+
+body {
+  background: #f1f1f1;
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+}
+
+header {
+  background: #4CAF50;
+  color: white;
+}
+
+header .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 40px; /* Increased padding */
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+header .container .logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: white;
+}
+
+header .container img {
+  width: 100px; /* Increased image size */
+  height: 60px;
+  margin-right: 10px;
+}
+
+header .container .shop-info {
+  font-family: Arial, sans-serif;
+}
+
+header .container .shop-info h1 {
+  font-size: 28px; /* Increased font size */
+  margin: 0;
+}
+
+header .container .shop-info p {
+  font-size: 18px; /* Increased font size */
+  margin: 0;
+}
+
+header .container .menu {
+  font-size: 20px; /* Increased font size */
+}
+
+header .container .menu a {
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 15px; /* Increased padding */
+  border-radius: 8px;
+  transition: background 0.3s ease;
+}
+
+header .container .menu a:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+header a {
+  color: #333;
+  text-decoration: none;
+}
+
+.pages {
+  max-width: 1400px;
+  padding: 20px;
+  margin: 0 auto;
+}
