@@ -1,16 +1,14 @@
 const express = require('express')
+const { addItem, getPlants, getPlant } = require('../controllers/plantController')
+
 
 const router = express.Router()
 
 //GET all plants
-router.get('/plants', (req, res) => {
-    res.json({msg: 'Get all plants'})
-})
+router.get('/plants', getPlants)
 
 //GET a single plant
-router.get('/plants/:id', (req, res) => {
-    res.json({msg: 'Get a single plant'})
-})
+router.get('/plants/:id', getPlant)
 
 //GET cart item
 router.get('/cart', (req, res) => {
@@ -18,9 +16,7 @@ router.get('/cart', (req, res) => {
 })
 
 //POST add item to cart
-router.post('/cart', (req, res) => {
-    res.json({msg: 'POST item to cart'})
-})
+router.post('/cart', addItem)
 
 //DELETE remove item from cart
 router.delete('/cart/:plantId', (req, res) => {
