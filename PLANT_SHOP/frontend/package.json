@@ -1,4 +1,5 @@
 {
+  "proxy": "https://jubilant-waffle-9rp5jxwr9vjcxg9r-4000.app.github.dev/",
   "name": "frontend",
   "version": "0.1.0",
   "private": true,
