@@ -1,10 +1,10 @@
 const express = require('express')
 const { addItem, 
-    getPlants, 
-    getPlant, 
+    getPlants,  
     getItem, 
     deleteItem,
-    updateItem
+    updateItem,
+    getPlantsByCategory
 } = require('../controllers/plantController')
 
 
@@ -14,7 +14,7 @@ const router = express.Router()
 router.get('/plants', getPlants)
 
 //GET a single plant
-router.get('/plants/:id', getPlant)
+router.get('/plants/category/:category', getPlantsByCategory)
 
 //GET cart item
 router.get('/cart', getItem)

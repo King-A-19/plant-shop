@@ -11,18 +11,21 @@ const getPlants = async (req, res) => {
     }
 }
 
-// GET a single plant
-const getPlant = async (req, res) => {
+// GET plants by category
+const getPlantsByCategory = async (req, res) => {
+    const { category } = req.params; // Capture the 'category' from URL parameters
+
     try {
-        const plant = await Plant.findById(req.params.id);
-        if (!plant ) {
-            return res.status(404).json({ message: 'Plant not found' });
+        const plants = await Plant.find({ category });
+        if (plants.length === 0) {
+            return res.status(404).json({ message: 'No plants found in this category' });
         }
-        res.status(200).json(plant);
+        res.status(200).json(plants);
     } catch (err) {
         res.status(400).json({ message: err.message });
     }
 }
+
 // GET cart items
 const getItem = async (req, res) => {
     try {
@@ -101,7 +104,7 @@ const updateItem =  async (req, res) => {
 
 module.exports = {
     getPlants,
-    getPlant,
+    getPlantsByCategory,
     addItem,
     getItem,
     deleteItem,

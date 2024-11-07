@@ -1,6 +1,10 @@
 import { Link } from "react-router-dom";
+import { useCart } from "../context/CartContext";
 
 const Navbar = () => {
+    const {cart } = useCart()
+    const itemCount = (cart || []).reduce((total, item) => total + item.quantity, 0);
+    
     return (
         <header>
             <div className="container">
@@ -20,6 +24,7 @@ const Navbar = () => {
                 {/* Menu Item */}
                 <div className="menu">
                     <Link to="/plants">Plants</Link>
+                    <Link to="/cart">Cart ({itemCount})</Link>
                 </div>
             </div>
         </header>
