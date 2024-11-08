@@ -1,10 +1,11 @@
+// Cart.js
 import { useCart } from "../context/CartContext";
 
 const Cart = () => {
-    const {cart, removeFromCart} = useCart()
+    const { cart, removeFromCart } = useCart();
 
-    if (cart.length === 0){
-        return <div>Your cart is empty</div>
+    if (cart.length === 0) {
+        return <div>Your cart is empty</div>;
     }
 
     return (
@@ -19,7 +20,7 @@ const Cart = () => {
                 </div>
             ))}
         </div>
-    )
+    );
 }
 
-export default Cart
+export default Cart;

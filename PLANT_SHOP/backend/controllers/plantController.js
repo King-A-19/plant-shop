@@ -29,27 +29,28 @@ const getPlantsByCategory = async (req, res) => {
 // GET cart items
 const getItem = async (req, res) => {
     try {
-        const cart = await Cart.findOne();
+        const cart = await Cart.findOne().populate({
+            path: 'items.plantId',
+            select: 'name price' // Retrieve 'name' and 'price' fields
+        });
         res.status(200).json(cart || { items: [] });
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
 }
+
 // POST add item to cart
-const addItem =  async (req, res) => {
+const addItem = async (req, res) => {
     const { plantId, quantity } = req.body;
     try {
         const plant = await Plant.findById(plantId);
-        if (!plant) {
-            return res.status(404).json({ message: 'Plant not found' });
-        }
+        if (!plant) return res.status(404).json({ message: 'Plant not found' });
 
         let cart = await Cart.findOne();
         if (!cart) {
             cart = new Cart({ items: [] });
         }
 
-        // Check if plant is already in the cart
         const itemIndex = cart.items.findIndex(item => item.plantId.equals(plantId));
         if (itemIndex > -1) {
             cart.items[itemIndex].quantity += quantity;
@@ -58,6 +59,7 @@ const addItem =  async (req, res) => {
         }
 
         await cart.save();
+        await cart.populate('items.plantId', 'name price'); // Populate after saving
         res.status(200).json(cart);
     } catch (err) {
         res.status(400).json({ message: err.message });
@@ -67,13 +69,13 @@ const addItem =  async (req, res) => {
 // DELETE remove item from cart
 const deleteItem = async (req, res) => {
     const { plantId } = req.params;
-
     try {
         const cart = await Cart.findOne();
         if (!cart) return res.status(404).json({ message: 'Cart not found' });
 
         cart.items = cart.items.filter(item => !item.plantId.equals(plantId));
         await cart.save();
+        await cart.populate('items.plantId', 'name price');
         res.status(200).json(cart);
     } catch (err) {
         res.status(500).json({ message: err.message });
@@ -81,7 +83,7 @@ const deleteItem = async (req, res) => {
 }
 
 // PUT update item quantity in cart
-const updateItem =  async (req, res) => {
+const updateItem = async (req, res) => {
     const { plantId } = req.params;
     const { quantity } = req.body;
 
@@ -90,12 +92,11 @@ const updateItem =  async (req, res) => {
         if (!cart) return res.status(404).json({ message: 'Cart not found' });
 
         const item = cart.items.find(item => item.plantId.equals(plantId));
-        if (!item) {
-            return res.status(404).json({ message: 'Item not found in cart' });
-        }
+        if (!item) return res.status(404).json({ message: 'Item not found in cart' });
 
         item.quantity = quantity;
         await cart.save();
+        await cart.populate('items.plantId', 'name price');
         res.status(200).json(cart);
     } catch (err) {
         res.status(500).json({ message: err.message });

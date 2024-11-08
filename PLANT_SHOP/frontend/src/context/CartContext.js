@@ -10,19 +10,17 @@ export const CartProvider = ({children}) => {
     const addToCart = async (plantId, quantity = 1) => {
         const response = await fetch('/api/cart', {
             method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({plantId, quantity})
-        })
-        const updatedCart = await response.json()
-        setCart(updatedCart.items)
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ plantId, quantity })
+        });
+        const updatedCart = await response.json();
+        setCart(updatedCart.items); // Update cart with populated items
     }
-
+    
     const removeFromCart = async (plantId) => {
-        const response = await fetch(`/api/cart/${plantId}`, {
-            method: 'DELETE'
-        })
-        const updatedCart = await response.json()
-        setCart(updatedCart.items)
+        const response = await fetch(`/api/cart/${plantId}`, { method: 'DELETE' });
+        const updatedCart = await response.json();
+        setCart(updatedCart.items);
     }
 
     return (

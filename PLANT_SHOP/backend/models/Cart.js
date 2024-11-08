@@ -12,6 +12,7 @@ const cartItemSchema = new Schema({
         required: true,
         default: 1
     },
+    
 })
     
 const cartSchema = new Schema({
